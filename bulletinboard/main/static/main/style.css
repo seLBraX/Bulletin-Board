@@ -1,0 +1,38 @@
+body {
+  font-family:Stencil Std, fantasy;  
+  color: #ffd500;
+  background-color: #fffcdd; /* Used if the image is unavailable */
+    background-position: center;
+    background-size: contain;
+
+  }
+/* unvisited link */
+a:link {
+  color: rgb(171, 171, 171);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(171, 171, 171);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(171, 171, 171);
+}
+
+/* selected link */
+a:active {
+  color: rgb(171, 171, 171);
+}
+.button {
+  background-color: #ffe600;
+  color: #ffe600;
+}
+/*
+shrifts:
+Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+Times, Times New Roman, serif;
+
+
+*/

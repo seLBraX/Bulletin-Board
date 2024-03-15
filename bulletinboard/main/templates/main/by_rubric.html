@@ -1,0 +1,44 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}{{ rubric }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-2">{{ rubric }}</h2>
+<div class="container-fluid mb-2">
+    <div class="row">
+        <div class="col">&nbsp;</div>
+        <form class="col-md-auto form-inline">
+            {% bootstrap_form form show_label=False %}
+            {% bootstrap_button content='Search' button_type='submit' %}
+        </form>
+    </div>
+</div>
+{% if ads %}
+<ul class="list-unstyled">
+    {% for ad in ads %}
+    <li class="media my-5 p-3 border">
+        {% url 'main:detail' rubric_pk=rubric.pk pk=ad.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        {% if ad.image %}
+        <img class="mr-3" src="{% thumbnail ad.image 'default' %}">
+        {% else %}
+        <img class="mr-3" src="{% static 'main/empty.jpg' %}">
+        {% endif %}
+        </a>
+        <div class="media-body">
+          <h3><a href="{{ url }}{{ all }}">
+          {{ ad.title }}</a></h3>
+          <div>{{ ad.content }}</div>
+          <p class="text-right font-weight-bold">{{ ad.price }} TMT.</p>
+          <p class="text-right font-italic">{{ ad.created_at }}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% bootstrap_pagination page url=keyword %}
+{% endif %}
+{% endblock %}

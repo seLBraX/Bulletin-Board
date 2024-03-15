@@ -1,0 +1,44 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+
+{% block title %} User's personal account {% endblock %}
+
+{% block content %}
+<h2>User's personal account {{ user.username }}</h2>
+{% if user.first_name and user.last_name %}
+<p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+{% else %}
+<p>Здравствуйте!</p>
+{% endif %}
+<p><a href="{% url 'main:profile_ad_add' %}">To add an advert</a></p>
+{% if ads %}
+<h3>Your ads</h3>
+<ul class="list-unstyled">
+    {% for ad in ads %}
+    <li class="media my-5 p-3 border">
+        {% url 'main:profile_ad_detail' pk=ad.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        {% if ad.image %}
+        <img class="mr-3" src="{% thumbnail ad.image 'default' %}">
+        {% else %}
+        <img class="mr-3" src="{% static 'main/empty.jpg' %}">
+        {% endif %}
+        </a>
+        <div class="media-body">
+          <h3><a href="{{ url }}{{ all }}">
+          {{ ad.title }}</a></h3>
+          <div>{{ ad.content }}</div>
+          <p class="text-right font-weight-bold">{{ ad.price }} TMT.</p>
+          <p class="text-right font-italic">{{ ad.created_at }}</p>
+          <p class="text-right mt-2">
+            <a href="{% url 'main:profile_ad_change' pk=ad.pk %}">Edit</a>
+            <a href="{% url 'main:profile_ad_delete' pk=ad.pk %}">Delete</a>
+          </p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
